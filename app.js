@@ -2,6 +2,9 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 
+const Record = require('./models/record')
+const Category = require('./models/category')
+
 const PORT = 3000
 
 const app = express()
@@ -23,7 +26,10 @@ db.once('open', () => {
 })
 
 app.get('/', (req, res) => {
-  res.render('index')
+  Record.find()
+    .lean()
+    .then(records => res.render('index', { records }))
+    .catch(error => console.log(error))
 })
 
 app.listen(PORT, () => {
