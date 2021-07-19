@@ -26,9 +26,20 @@ db.once('open', () => {
 })
 
 app.get('/', (req, res) => {
+  const categories = {}
+  Category.find()
+    .lean()
+    .then(category => {
+      category.forEach(item => categories[item.categoryName] = item.categoryIcon)
+    })
+
   Record.find()
     .lean()
-    .then(records => res.render('index', { records }))
+    .then(records => {
+      records.forEach(record => record['icon'] = categories[record.category]
+      )
+      res.render('index', { records })
+    })
     .catch(error => console.log(error))
 })
 
