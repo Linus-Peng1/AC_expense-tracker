@@ -11,7 +11,11 @@ const PORT = 3000
 
 const app = express()
 
-app.engine('hbs', exphbs({ defaultLayput: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({
+  defaultLayput: 'main',
+  extname: '.hbs',
+  helpers: require('./utils/handlebarsHelpers')
+}))
 app.set('view engine', 'hbs')
 
 app.use(express.static('public'))
@@ -76,6 +80,7 @@ app.put('/records/:id', (req, res) => {
 // delete record
 app.delete('/records/:id', (req, res) => {
   const id = req.params.id
+  console.log('delete')
   return Record.findById(id)
     .then(record => record.remove())
     .then(() => res.redirect('/'))
@@ -85,18 +90,25 @@ app.delete('/records/:id', (req, res) => {
 // home page
 app.get('/', (req, res) => {
   const categoryIcons = {}
+  const selectedCategory = req.query.categorySelect
+
   Category.find()
     .lean()
     .then(category => {
-      category.forEach(item => categoryIcons[item.categoryName] = item.categoryIcon)
+      category.forEach(item => {
+        categoryIcons[item.categoryName] = item.categoryIcon
+      })
     })
-
-  Record.find()
-    .lean()
-    .then(records => {
-      records.forEach(record => record['icon'] = categoryIcons[record.category]
-      )
-      res.render('index', { records })
+    .then(() => {
+      Record.find()
+        .lean()
+        .then(records => {
+          records.forEach(record => record['icon'] = categoryIcons[record.category])
+          if (selectedCategory) {
+            records = records.filter(record => record.category === selectedCategory)
+          }
+          res.render('index', { records, categories, selectedCategory })
+        })
     })
     .catch(error => console.log(error))
 })
