@@ -80,7 +80,6 @@ app.put('/records/:id', (req, res) => {
 // delete record
 app.delete('/records/:id', (req, res) => {
   const id = req.params.id
-  console.log('delete')
   return Record.findById(id)
     .then(record => record.remove())
     .then(() => res.redirect('/'))
