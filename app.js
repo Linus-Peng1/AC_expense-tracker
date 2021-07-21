@@ -90,6 +90,7 @@ app.delete('/records/:id', (req, res) => {
 app.get('/', (req, res) => {
   const categoryIcons = {}
   const selectedCategory = req.query.categorySelect
+  let totalAmount = 0
 
   Category.find()
     .lean()
@@ -106,7 +107,8 @@ app.get('/', (req, res) => {
           if (selectedCategory) {
             records = records.filter(record => record.category === selectedCategory)
           }
-          res.render('index', { records, categories, selectedCategory })
+          records.forEach(record => totalAmount += record.amount)
+          res.render('index', { records, categories, selectedCategory, totalAmount })
         })
     })
     .catch(error => console.log(error))
