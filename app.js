@@ -73,6 +73,15 @@ app.put('/records/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// delete record
+app.delete('/records/:id', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .then(record => record.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // home page
 app.get('/', (req, res) => {
   const categoryIcons = {}

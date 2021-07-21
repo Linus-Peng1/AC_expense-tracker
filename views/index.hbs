@@ -2,7 +2,7 @@
   <div class="row d-flex justify-content-center">
 
     <!-- expense item -->
-    <ul class="list-group">
+    <ul class="list-group" id="data-panel">
       <div class="row d-flex justify-content-center">
         <div class="col-12">
           {{#each records}}
@@ -15,8 +15,8 @@
             <div class="col col-auto text-end">{{this.amount}}</div>
             <div class="col col-auto">
               <a href="./records/{{ this._id }}/edit">編輯</a>
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#recordDeleteModal"
-                data-id="{{this._id}}">
+              <button type="button" class="btn btn-danger" id="delete-btn" data-toggle="modal"
+                data-target="#recordDeleteModal" data-id="{{this._id}}">
                 刪除
               </button>
             </div>
@@ -45,8 +45,8 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-            <form action="/records/:id?_method=DELETE" method="POST" style="display: inline;">
-              <button type="button" class="btn btn-danger">刪除</button>
+            <form id="modal-delete" method="POST">
+              <button type="submit" class="btn btn-danger">刪除</button>
             </form>
           </div>
         </div>
