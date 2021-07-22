@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Category = require('../category')
-
-mongoose.connect('mongodb://localhost/expense-list', { useNewUrlParser: true, useUnifiedTopology: true })
+const db = require('../../config/mongoose')
 
 const category = [
   {
@@ -31,10 +30,6 @@ const category = [
   }
 ]
 
-const db = mongoose.connection
-db.on('error', () => {
-  console.log('mongodb error!')
-})
 db.once('open', () => {
   Category.create(category)
     .then(() => {
