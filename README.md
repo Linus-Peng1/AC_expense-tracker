@@ -38,7 +38,7 @@ git clone https://github.com/Linus-Peng1/AC_expense-tracker.git
 ```
 2. 進入存放此專案資料夾
 ```
-cd restaurant-list
+cd expense-tracker
 ```
 3. 安裝套件
 ```
