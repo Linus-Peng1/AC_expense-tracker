@@ -6,7 +6,7 @@ const methodOverride = require('method-override')
 const routes = require('./routes/index')
 require('./config/mongoose')
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 const app = express()
 
 app.engine('hbs', exphbs({
