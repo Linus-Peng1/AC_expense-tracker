@@ -102,6 +102,7 @@ app.get('/', (req, res) => {
     .then(() => {
       Record.find()
         .lean()
+        .sort({ date: 'desc' })
         .then(records => {
           records.forEach(record => record['icon'] = categoryIcons[record.category])
           if (selectedCategory) {
