@@ -5,6 +5,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 
 const routes = require('./routes/index')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const PORT = process.env.PORT || 3000
@@ -26,6 +27,8 @@ app.use(session({
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
+app.usePassport(app)
 
 app.use(routes)
 
