@@ -28,7 +28,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
-app.usePassport(app)
+usePassport(app)
 
 app.use(routes)
 
