@@ -38,6 +38,7 @@ app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.success_msg = req.flash('success_msg') // 設定 success_msg 訊息
   res.locals.warning_msg = req.flash('warning_msg') // 設定 warning_msg 訊息
+  res.locals.errorPassport = req.flash('error') // 登入驗證的錯誤訊息
   next()
 })
 

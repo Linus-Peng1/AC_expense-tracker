@@ -12,7 +12,8 @@ router.get('/login', (req, res) => {
 // Passport 提供的 authenticate 方法執行認證。
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
+  failureFlash: true
 }))
 
 // 使用者註冊

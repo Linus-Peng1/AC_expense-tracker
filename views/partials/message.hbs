@@ -25,3 +25,13 @@
 </div>
 {{/each}}
 {{/if}}
+
+<!-- 登入驗證的錯誤訊息 -->
+{{#if errorPassport}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{errorPassport}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×
+  </button>
+</div>
+{{/if}}
