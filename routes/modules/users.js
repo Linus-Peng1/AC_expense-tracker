@@ -35,4 +35,10 @@ router.post('/register', (req, res) => {
   })
 })
 
+// 使用者登出
+router.get('logout', (req, res) => [
+  req.logout() // 是 Passport.js 提供的函式，會清除 session。
+  res.redirect('/users/login')
+])
+
 module.exports = router
