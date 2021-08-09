@@ -27,7 +27,8 @@ router.get('/', (req, res) => {
     })
     .then(() => {
       // 處理 record 物件
-      Record.find()
+      const userId = req.user._id
+      Record.find({ userId })
         .lean()
         .sort({ date: 'desc' })
         .then(records => {
