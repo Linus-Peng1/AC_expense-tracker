@@ -16,11 +16,11 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, category, date, amount } = req.body
-  if (!name || !category || !date || !amount) {
+  const { name, category, date, amount, merchant } = req.body
+  if (!name || !category || !date || !amount || !merchant) {
     return res.redirect('/records/new')
   }
-  return Record.create({ name, category, date, amount })
+  return Record.create({ name, category, date, amount, merchant })
     .then(() => res.redirect('/'))
     .catch(error => console.error(error))
 })
@@ -36,13 +36,10 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const { name, category, date, amount } = req.body
+  const editRecord = req.body
   return Record.findById(id)
     .then(record => {
-      record.name = name
-      record.category = category
-      record.date = date
-      record.amount = amount
+      Object.assign(record, editRecord)
       return record.save()
     })
     .then(() => res.redirect('/'))
