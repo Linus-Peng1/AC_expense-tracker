@@ -5,6 +5,22 @@
       <!-- select category -->
       <div class="d-flex justify-content-center my-3">
         <form action="/" method="GET">
+          <select class="form-select" name="monthSelect" id="monthSelect" onchange="submit()">
+            <option value="">月份</option>
+            <option value="1" {{#if (isSelected "1" selectedMonth)}} selected {{/if}}>一月</option>
+            <option value="2" {{#if (isSelected "2" selectedMonth)}} selected {{/if}}>二月</option>
+            <option value="3" {{#if (isSelected "3" selectedMonth)}} selected {{/if}}>三月</option>
+            <option value="4" {{#if (isSelected "4" selectedMonth)}} selected {{/if}}>四月</option>
+            <option value="5" {{#if (isSelected "5" selectedMonth)}} selected {{/if}}>五月</option>
+            <option value="6" {{#if (isSelected "6" selectedMonth)}} selected {{/if}}>六月</option>
+            <option value="7" {{#if (isSelected "7" selectedMonth)}} selected {{/if}}>七月</option>
+            <option value="8" {{#if (isSelected "8" selectedMonth)}} selected {{/if}}>八月</option>
+            <option value="9" {{#if (isSelected "9" selectedMonth)}} selected {{/if}}>九月</option>
+            <option value="10" {{#if (isSelected "10" selectedMonth)}} selected {{/if}}>十月</option>
+            <option value="11" {{#if (isSelected "11" selectedMonth)}} selected {{/if}}>十一月</option>
+            <option value="12" {{#if (isSelected "12" selectedMonth)}} selected {{/if}}>十二月</option>
+          </select>
+
           <select class="form-select" name="categorySelect" id="categorySelect" onchange="submit()">
             <option value="">類別</option>
             {{#each categories}}
@@ -16,6 +32,7 @@
         </form>
       </div>
 
+      <!-- total amount -->
       <div class="d-flex justify-content-center my-3">
         <div>總金額：</div>
         <div class="totalAmount">{{totalAmount}}</div>
@@ -23,35 +40,29 @@
 
       <!-- expense item -->
       <ul class="list-group" id="data-panel">
-        <div class="justify-content-center">
-          <div class="col-12">
-            {{#each records}}
-            <div class="row mt-3">
-              <i class="{{this.icon}}"></i>
-              <div class="col-auto  mr-auto">
-                <div>{{ this.name }}</div>
-                <div>{{ toDate this.date }}</div>
-              </div>
-              <div class="col col-auto text-end">{{this.amount}}</div>
-              <div class="col col-auto">
-                <a href="./records/{{ this._id }}/edit">編輯</a>
-                <button type="button" class="btn btn-danger" id="delete-btn" data-toggle="modal"
-                  data-target="#recordDeleteModal" data-id="{{this._id}}">
-                  刪除
-                </button>
-              </div>
-            </div>
-            {{/each}}
-
-            <div class="container col-md-5 mt-5">
-              <a href="/records/new">
-                <button type="button" class="btn btn-warning">新增支出</button>
-              </a>
-            </div>
-
+        {{#each records}}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <i class="{{this.icon}}"></i>
+          <div class="col-auto  mr-auto">
+            <div>{{ this.name }}</div>
+            <div>{{ toDate this.date }}</div>
           </div>
-        </div>
+          <div class="col col-auto mr-5">{{this.merchant}}</div>
+          <div class="col col-auto mr-5">{{this.amount}}</div>
+          <span>
+            <a href="./records/{{ this._id }}/edit" class="btn btn-secondary" id="edit-btn">編輯</a>
+            <button type="button" class="btn btn-danger" id="delete-btn" data-toggle="modal"
+              data-target="#recordDeleteModal" data-id="{{this._id}}">刪除</button>
+          </span>
+        </li>
+        {{/each}}
       </ul>
+
+      <div class="d-flex justify-content-center mt-5">
+        <a href="/records/new">
+          <button type="button" class="btn btn-warning">新增支出</button>
+        </a>
+      </div>
 
       <!-- Modal -->
       <div class="modal fade" id="recordDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"

@@ -14,8 +14,10 @@ Category.find()
 router.get('/', (req, res) => {
   const categoryIcons = {}
   const selectedCategory = req.query.categorySelect
+  const selectedMonth = req.query.monthSelect
   let totalAmount = 0
 
+  // 處理 categoryIcons 物件
   Category.find()
     .lean()
     .then(category => {
@@ -24,16 +26,25 @@ router.get('/', (req, res) => {
       })
     })
     .then(() => {
+      // 處理 record 物件
       Record.find()
         .lean()
         .sort({ date: 'desc' })
         .then(records => {
-          records.forEach(record => record['icon'] = categoryIcons[record.category])
+          records.forEach(record => record['icon'] = categoryIcons[record.category]) // 在 record 物件裡建立 "icon"
+
+          // 依類別篩選
           if (selectedCategory) {
             records = records.filter(record => record.category === selectedCategory)
           }
-          records.forEach(record => totalAmount += record.amount)
-          res.render('index', { records, categories, selectedCategory, totalAmount })
+
+          // 依月份篩選
+          if (selectedMonth) {
+            records = records.filter(record => (record.date.getMonth() + 1) === Number(selectedMonth))
+          }
+
+          records.forEach(record => totalAmount += record.amount) // 統計總金額
+          res.render('index', { records, categories, selectedCategory, selectedMonth, totalAmount })
         })
     })
     .catch(error => console.log(error))
