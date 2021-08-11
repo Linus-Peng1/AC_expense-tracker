@@ -2,7 +2,13 @@
 
 <br>
 
-此專案為一個網路記帳工具應用程式
+此專案為使用者提供一個網路記帳工具，可以編輯、篩選各項消費紀錄。
+
+可至 Heroku 上作使用: https://dry-refuge-52756.herokuapp.com/users/login
+
+測試會員資料: 
+email: user1@example.com
+password: 12345678
 
 ## 產品功能
 
