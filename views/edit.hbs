@@ -20,7 +20,7 @@
         <div class="row mb-3">
           <label for="date">日期*</label>
           <div class="col-sm-6">
-            <input type="date" class="form-control" id="date" name="date" value="{{record.date}}" required>
+            <input type="date" class="form-control" id="date" name="date" value="{{toDate record.date}}" required>
           </div>
           <div class="valid-feedback">Good!</div>
           <div class="invalid-feedback">This field is required!</div>
@@ -52,7 +52,8 @@
         <div class="row mb-3">
           <label for="amount">金額*</label>
           <div class="col-sm-6">
-            <input type="number" class="form-control" id="amount" name="amount" value="{{record.amount}}" required>
+            <input type="number" class="form-control" id="amount" name="amount" min="0" value="{{record.amount}}"
+              required>
           </div>
           <div class="valid-feedback">Good!</div>
           <div class="invalid-feedback">This field is required!</div>
