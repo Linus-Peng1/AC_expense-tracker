@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const mongoose = require('mongoose')
 const Category = require('../category')
 const db = require('../../config/mongoose')
@@ -36,7 +39,5 @@ db.once('open', () => {
       console.log('insert category done...')
       return db.close()
     })
-    .then(() => {
-      console.log('database connection close...')
-    })
+    .catch(error => console.log(error))
 })
