@@ -2,7 +2,7 @@
 
 <br>
 
-此專案為使用者提供一個網路記帳工具，可以編輯、篩選各項消費紀錄。
+此專案為提供使用者一個網路記帳工具，可以編輯、篩選各項消費紀錄。
 
 Heroku 連結: https://dry-refuge-52756.herokuapp.com/users/login
 
@@ -14,11 +14,10 @@ Heroku 連結: https://dry-refuge-52756.herokuapp.com/users/login
 
 <br>
 
-* 使用者可以在首頁一次瀏覽所有支出的清單 及 清單的總金額
-* 使用者可以新增一筆支出
-* 使用者可以編輯支出的所有屬性
-* 使用者可以刪除任何一筆支出
-* 在首頁可以根據支出「類別」篩選支出；總金額的計算只會包括被篩選出來的支出總和。
+* 需登入會員使用，可以註冊新帳號，或者可以透過 Facebook Login 直接登入。
+* 使用者可以在首頁一次瀏覽所有支出的清單 及 清單的總金額。
+* 使用者可以新增/編輯/刪除任一筆支出內容。
+* 在首頁可以根據支出「類別」與「月份」篩選支出；並顯示篩選出來的支出總和。
 
 <br>
 
@@ -31,6 +30,7 @@ Heroku 連結: https://dry-refuge-52756.herokuapp.com/users/login
 * express-handlebars: 5.3.2
 * mongoose: ^5.12.0
 * mongoDB: ^4.2.14
+* passport: ^0.4.1
 
 <br>
 
@@ -62,4 +62,3 @@ npm run dev
 6. 出現下列訊息，表示啟動成功，可點選連結開啟網頁
 
 App is running on http://localhost:3000
-
