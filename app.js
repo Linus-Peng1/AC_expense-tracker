@@ -5,11 +5,15 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const routes = require('./routes/index')
 const usePassport = require('./config/passport')
 require('./config/mongoose')
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT
 const app = express()
 
 app.engine('hbs', exphbs({
@@ -20,7 +24,7 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs')
 
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false, // if true，每次與使用者互動後，強制把 session 更新到 session store 裡。
   saveUninitialized: true // 強制將未初始化的 session 存回 session store。
 }))
