@@ -4,7 +4,7 @@
 
       <!-- select category -->
       <div class="d-flex justify-content-center my-3">
-        <form action="/" method="GET">
+        <form action="/filter" method="GET">
           <select class="form-select" name="monthSelect" id="monthSelect" onchange="submit()">
             <option value="">月份</option>
             <option value="1" {{#if (isSelected "1" selectedMonth)}} selected {{/if}}>一月</option>
@@ -45,7 +45,7 @@
           <i class="{{this.icon}}"></i>
           <div class="col-auto  mr-auto">
             <div>{{this.name}}</div>
-            <div>{{toDate this.date}}</div>
+            <div>{{convertDate this.date}}</div>
           </div>
           <div class="col col-auto mr-5">{{this.merchant}}</div>
           <div class="col col-auto mr-5">{{this.amount}}</div>
