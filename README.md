@@ -51,8 +51,8 @@ cd expense-tracker
 npm install
 ```
 4. 
-設定環境變數檔案，將檔案 .env.example 檔名改為 .env。
-若要使用 facebook login 功能，需先至 Facebook for Developers 中建立應用程式，並將應用程式編號和密鑰分別輸入至 .env 檔案中的 FACEBOOK_ID 和 FACEBOOK_SECRET。
+* 設定環境變數檔案，將檔案 .env.example 檔名改為 .env。
+* 若要使用 facebook login 功能，需先至 Facebook for Developers 中建立應用程式，並將應用程式編號和密鑰分別輸入至 .env 檔案中的 FACEBOOK_ID 和 FACEBOOK_SECRET。
 
 5. 加入種子資料
 ```
