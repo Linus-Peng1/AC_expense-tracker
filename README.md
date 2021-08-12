@@ -6,9 +6,9 @@
 
 Heroku 連結: https://dry-refuge-52756.herokuapp.com/users/login
 
-* 測試會員資料: 
-  * email: user1@example.com
-  * password: 12345678
+測試會員資料: 
+* email: user1@example.com
+* password: 12345678
 
 ## 產品功能
 
@@ -50,15 +50,21 @@ cd expense-tracker
 ```
 npm install
 ```
-4. 加入種子資料
+4. 
+```
+設定環境變數檔案，將檔案 .env.example 檔名改為 .env。
+若要使用 facebook login 功能，需先至 Facebook for Developers 中建立應用程式，並將應用程式編號和密鑰分別輸入至 .env 檔案中的 FACEBOOK_ID 和 FACEBOOK_SECRET。
+```
+5. 加入種子資料
 ```
 npm run seed
 ```
 
-5. 啟動網頁伺服器
+6. 啟動網頁伺服器
 ```
 npm run dev
 ```
-6. 出現下列訊息，表示啟動成功，可點選連結開啟網頁
-
+7. 出現下列訊息，即可點選連結開啟網頁
+```
 App is running on http://localhost:3000
+```
