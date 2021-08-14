@@ -24,12 +24,22 @@ router.get('/', (req, res) => {
   Record
     .aggregate([
       { '$project': { 'name': 1, 'userId': 1, 'category': 1, 'date': 1, 'amount': 1, 'merchant': 1, 'month': { $month: '$date' } } },
-      { '$match': { userId, category, month } }
+      { '$match': { userId, category, month } },
+      {
+        '$facet': {
+          recordResults: [{ '$match': { userId, category, month } }],
+          totalCount: [{ '$group': { '_id': null, 'total': { '$sum': '$amount' } } }]
+        }
+      }
     ])
-    .then(records => {
+    .then(results => {
+      const records = results[0].recordResults
+      console.log(records)
+      if (records.length) {
+        totalAmount = results[0].totalCount[0].total
+      }
       records.forEach(record => {
-        totalAmount += record.amount
-        record['icon'] = getCategoryIcon(record.category, categories)
+        record['icon'] = getCategoryIcon(record.category, categories) // add category icon
       })
       res.render('index', { records, categories, selectedCategory, selectedMonth, totalAmount })
     })
