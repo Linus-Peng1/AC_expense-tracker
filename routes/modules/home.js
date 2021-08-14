@@ -14,46 +14,22 @@ Category.find()
 
 // home page
 router.get('/', (req, res) => {
-  const categoryIcons = {}
-  let totalAmount = 0
-  const userId = req.user._id
-
-  Record.find({ userId })
-    .lean()
-    .sort({ date: 'desc' })
-    .then(records => {
-      records.forEach(record => {
-        totalAmount += record.amount // 統計總金額
-        record['icon'] = getCategoryIcon(record.category, categories) // 在 record 物件裡建立 "icon"
-      })
-      res.render('index', { records, categories, totalAmount })
-    })
-    .catch(error => console.log(error))
-})
-
-// filter page
-router.get('/filter', (req, res) => {
   const selectedCategory = req.query.categorySelect
   const selectedMonth = req.query.monthSelect
-  let totalAmount = 0
+  const category = selectedCategory ? selectedCategory : { $ne: '' } // ne: not equal
+  const month = Number(selectedMonth) ? Number(selectedMonth) : { $ne: '' }
   const userId = req.user._id
+  let totalAmount = 0
 
-  Record.find({ userId })
-    .lean()
-    .sort({ date: 'desc' })
+  Record
+    .aggregate([
+      { '$project': { 'name': 1, 'userId': 1, 'category': 1, 'date': 1, 'amount': 1, 'merchant': 1, 'month': { $month: '$date' } } },
+      { '$match': { userId, category, month } }
+    ])
     .then(records => {
-      // 依類別篩選
-      if (selectedCategory) {
-        records = records.filter(record => record.category === selectedCategory)
-      }
-      // 依月份篩選
-      if (selectedMonth) {
-        records = records.filter(record => (record.date.getMonth() + 1) === Number(selectedMonth))
-      }
-
       records.forEach(record => {
-        totalAmount += record.amount // 統計總金額
-        record['icon'] = getCategoryIcon(record.category, categories) // 在 record 物件裡建立 "icon"
+        totalAmount += record.amount
+        record['icon'] = getCategoryIcon(record.category, categories)
       })
       res.render('index', { records, categories, selectedCategory, selectedMonth, totalAmount })
     })
